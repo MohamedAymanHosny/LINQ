@@ -1,10 +1,10 @@
-﻿namespace LinqForCSharpDevelopers;
+namespace App1;
 
 public record Car(
     int Id,
     string Make,
     string Model,
-    int ManufactureYear,
+    int Year,
     string VIN,
     string Color,
     int MaxSpeed
