@@ -76,7 +76,7 @@
   
   **Exceptions:**
 * `ArgumentNullException`: The source is null.
-* 
+  
 ### 10. `DistinctBy`
 
 **Definition:** Returns distinct elements from a sequence according to a specified key selector function.
