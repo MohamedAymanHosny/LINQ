@@ -1,55 +1,56 @@
 /* Funcation First */
+
 var cars = CarRepository.GetCars();
 var result = cars.First();
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation FirstOrDefault */
+
 var cars = CarRepository.GetCars();
 var defaultCar = new Car (0, "Default", "Default", 0, "Default", "Default", 0);
 var result = cars.FirstOrDefault(defaultCar);
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation Last */
+
 var cars = CarRepository.GetCars();
 var result = cars.Last();
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation LastOrDefault */
+
 var cars = CarRepository.GetCars();
 var defaultCar = new Car(1, "Default", "Default", 1, "Default", "Default", 1);
 var result = cars.LastOrDefault(defaultCar);
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation Single */
+
 var cars = CarRepository.GetCars();
 var result = cars.Single();
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation SingleOrDefault */
+
 var cars = CarRepository.GetCars();
 var defaultCar = new Car(1, "Default", "Default", 1, "Default", "Default", 1);
 var result = cars.SingleOrDefault();
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation Any */
+
 var cars = CarRepository.GetCars();
 var result = cars.Any();
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation All */
+
 var cars = CarRepository.GetCars();
 var result = cars.All(c => c.Make == "Ford");
 Console.WriteLine(result);
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation Distinct */
+
 var cars = CarRepository.GetCars();
 var result = cars.Distinct();
 foreach (var car in result)
@@ -57,8 +58,8 @@ foreach (var car in result)
     Console.WriteLine($"{car.Make} - {car.Year}");
 }
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation DistinctBy */
+
 var cars = CarRepository.GetCars();
 var result = cars.DistinctBy(c => c.Make);
 foreach (var car in result)
@@ -66,8 +67,8 @@ foreach (var car in result)
     Console.WriteLine($"{car.Id} = {car.Make} - {car.MaxSpeed}km/h");
 }
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation OrderBy */
+
 var cars = CarRepository.GetCars();
 var result = cars.OrderBy(c => c.Make);
 foreach (var car in result)
@@ -75,8 +76,8 @@ foreach (var car in result)
     Console.WriteLine($"{car.Make} - {car.Model} - {car.MaxSpeed}km/h");
 }
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation OrderByDescending */
+
 var cars = CarRepository.GetCars();
 var result = cars.OrderByDescending(c => c.MaxSpeed);
 foreach (var car in result)
@@ -84,8 +85,8 @@ foreach (var car in result)
     Console.WriteLine($"{car.Make} - {car.MaxSpeed}km/h");
 }
 /*-------------------------------------------------------------------------------------*/
-
 /* Funcation Count */
+
 var cars = CarRepository.GetCars();
 var result = cars.Count();
 var result2 = cars.Count(c => c.Make == "Ford");
@@ -96,36 +97,25 @@ Console.WriteLine($"{result3} >= 2008");
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Max */
 
-using App1;
-using System.Linq;
-
 int[] numbers = [1, 5, 8, 12, 20];
-
 var maximum = numbers.Max();
 Console.WriteLine(maximum);
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Min */
 
-using App1;
 using System.Linq;
-
 int[] numbers = [1, 5, 8, 12, 20];
-
 var minimum = numbers.Min();
 Console.WriteLine(minimum);
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Average */
 
-using App1;
 using System.Linq;
-
 int[] numbers = [1, 5, 8, 12, 20];
-
 var average = numbers.Average();
 Console.WriteLine(average);
 /*-------------------------------------------------------------------------------------*/
 /* Funcation AggregateBy */
-using App1;
 
 List<Employee> employees =
 [
@@ -135,22 +125,17 @@ List<Employee> employees =
     new("Saif", "IT", 90_000),
 ];
 var salary = employees.AggregateBy(e => e.Department, seed: 0.0, (total, employee) => total + employee.Salary);
-
-
 foreach (var item in salary)
 {
     Console.WriteLine($"{item.Key} : {item.Value}");
 }
-
 var cars = CarRepository.GetCars();
-
 var carWithModel = Car.AggregateBy
     (
      c => c.Make,
      seed: new List<string>(),
      (models, car) => [.. models, car.Model]
     );
-
 foreach (var item in carWithModel)
 {
     WriteLine(item.Key);
@@ -163,13 +148,8 @@ foreach (var item in carWithModel)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Chunk */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.Chunk(33);
-
 foreach (var chunk in result)
 {
     foreach (var car in chunk)
@@ -182,13 +162,8 @@ foreach (var chunk in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Take */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.Take(new Range(0, 3));
-
 foreach (var car in result)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -196,13 +171,8 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation TakeLast */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.TakeLast(10);
-
 foreach (var car in result)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -210,11 +180,7 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation TakeWhile */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 //var result = cars.TakeWhile(c => c.MaxSpeed > 200);
 var result = cars.TakeWhile((c, i) => i < 200);
 foreach (var car in result)
@@ -224,13 +190,8 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Skip */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.Skip(100);
-
 foreach (var car in result)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -238,13 +199,8 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation SkipLast */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.SkipLast(200);
-
 foreach (var car in result)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -252,11 +208,7 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation SkipWhile */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.SkipWhile(c => c.Make == "Volvo");
 var result2 = cars.TakeWhile((c, i) => i < 200);
 foreach (var car in result)
@@ -266,17 +218,10 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation DefaultIfEmpty */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var EmptyList = Enumerable.Empty<Car>();
-
 int[] numbers = [];
-
 var results = numbers.DefaultIfEmpty(1000);
-
 foreach (var car in results)
 {
     Console.WriteLine(car);
@@ -284,23 +229,15 @@ foreach (var car in results)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ElementAt */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.ElementAt(0);
 var result1 = cars.ElementAt(new Index(1, true));
-
 Console.WriteLine(result);
 Console.WriteLine(result1);
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ElementAtOrDefault */
-using App1;
-using System.Linq;
 
 var cars = CarRepository.GetCars();
-
 var result = cars.ElementAtOrDefault(1000);
 var result1 = cars.ElementAtOrDefault(new Index(1, true));
 int[] numbers = [];
@@ -311,13 +248,8 @@ Console.WriteLine(result2);
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Index */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var result = cars.Index();
-
 foreach (var car in result)
 {
     Console.WriteLine($"{car.Index} - {car.Item}");
@@ -325,8 +257,6 @@ foreach (var car in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Concat */
 
-using App1;
-using System.Linq;
 List<Car> cars1 =
 [
         new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
@@ -358,7 +288,7 @@ foreach (Car car in allcars)
 }
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Union */
-using App1;
+
 List<Car> cars1 =
 [
         new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
@@ -390,7 +320,7 @@ foreach (Car car in allcars)
 }
 /*-------------------------------------------------------------------------------------*/
 /* Funcation UnionBy */
-using App1;
+
 List<Car> cars1 =
 [
         new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
@@ -422,7 +352,6 @@ foreach (Car car in allcars)
 }
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Zip */
-using App1;
 
 int[] numbers = [1, 2, 3, 4];
 string[] words = ["one", "two", "three", "four"];
@@ -436,13 +365,8 @@ foreach (var (First, Second, Third) in result)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ToArray */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var carsToAray = cars.ToArray();
-
 var firstCar = carsToAray[0];
 Console.WriteLine($"First Car: {firstCar.Id} - {firstCar.Make} - {firstCar.Model}");
 Console.WriteLine($"------------------- All Cars ------------------");
@@ -453,13 +377,8 @@ foreach (var car in carsToAray)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ToDictionary */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var carsToDictionary = cars.ToDictionary(c => c.Id, c => $"{c.Make} - {c.Model}");
-
 foreach (var car in carsToDictionary)
 {
     Console.WriteLine($"Key: {car.Key} - Value: {car.Value}");
@@ -467,13 +386,8 @@ foreach (var car in carsToDictionary)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ToHashSet */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var carsToHashSet = cars.ToHashSet();
-
 foreach (var car in carsToHashSet)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -481,13 +395,8 @@ foreach (var car in carsToHashSet)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ToList */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var carsToList = cars.ToList();
-
 foreach (var car in carsToList)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -495,13 +404,8 @@ foreach (var car in carsToList)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation ToList */
 
-using App1;
-using System.Linq;
-
 var cars = CarRepository.GetCars();
-
 var carsToList = cars.ToList();
-
 foreach (var car in carsToList)
 {
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
@@ -509,16 +413,11 @@ foreach (var car in carsToList)
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Contains */
 
-using App1;
-using System.Linq;
-
 int[] numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var result = numbers.Contains(25);
 Console.WriteLine(result ? "I found it" : "I don't find it");
 /*-------------------------------------------------------------------------------------*/
 /* Funcation Intersect */
-using App1;
-using System.Linq;
 
 int[] numbers1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 int[] numbers2 = [5, 6, 6, 7, 8, 9, 10, 11, 12, 12, 13, 14, 15];
@@ -551,8 +450,6 @@ foreach (var car in result)
 }
 /*-------------------------------------------------------------------------------------*/
 /* Funcation IntersectBy */
-using App1;
-using System.Linq;
 
 List<Car> cars1 =
 [
@@ -577,14 +474,11 @@ foreach (var car in result)
 }
 /*-------------------------------------------------------------------------------------*/
 /* Funcation SequenceEqual */
-using App1;
-using System.Linq;
+
 int[] numbers1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 int[] numbers2 = [1, 2, 6, 4, 5, 3, 7, 9, 8, 10];
 var result = numbers1.SequenceEqual(numbers2);
-
 Console.WriteLine(result ? "Both sequences are equal" : "Sequences are not equal");
-
 List<Car> cars1 =
 [
         new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
