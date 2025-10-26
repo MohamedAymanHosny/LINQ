@@ -94,3 +94,513 @@ Console.WriteLine($"{result} cars");
 Console.WriteLine($"{result2} fords' car");
 Console.WriteLine($"{result3} >= 2008");
 /*-------------------------------------------------------------------------------------*/
+/* Funcation Max */
+
+using App1;
+using System.Linq;
+
+int[] numbers = [1, 5, 8, 12, 20];
+
+var maximum = numbers.Max();
+Console.WriteLine(maximum);
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Min */
+
+using App1;
+using System.Linq;
+
+int[] numbers = [1, 5, 8, 12, 20];
+
+var minimum = numbers.Min();
+Console.WriteLine(minimum);
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Average */
+
+using App1;
+using System.Linq;
+
+int[] numbers = [1, 5, 8, 12, 20];
+
+var average = numbers.Average();
+Console.WriteLine(average);
+/*-------------------------------------------------------------------------------------*/
+/* Funcation AggregateBy */
+using App1;
+
+List<Employee> employees =
+[
+    new("Mohamed", "HR", 60_000),
+    new("Ahmed", "IT", 80_000),
+    new("Mohsen", "HR", 70_000),
+    new("Saif", "IT", 90_000),
+];
+var salary = employees.AggregateBy(e => e.Department, seed: 0.0, (total, employee) => total + employee.Salary);
+
+
+foreach (var item in salary)
+{
+    Console.WriteLine($"{item.Key} : {item.Value}");
+}
+
+var cars = CarRepository.GetCars();
+
+var carWithModel = Car.AggregateBy
+    (
+     c => c.Make,
+     seed: new List<string>(),
+     (models, car) => [.. models, car.Model]
+    );
+
+foreach (var item in carWithModel)
+{
+    WriteLine(item.Key);
+
+    foreach (var model in item.Value)
+    {
+        WriteLine($"\t {model}");
+    }
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Chunk */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.Chunk(33);
+
+foreach (var chunk in result)
+{
+    foreach (var car in chunk)
+    {
+        Console.WriteLine($"Make: {car.Make} + Model: {car.Model}");
+    }
+
+    Console.WriteLine("-------------------- End of Chunk --------------------");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Take */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.Take(new Range(0, 3));
+
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation TakeLast */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.TakeLast(10);
+
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation TakeWhile */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+//var result = cars.TakeWhile(c => c.MaxSpeed > 200);
+var result = cars.TakeWhile((c, i) => i < 200);
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.MaxSpeed}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Skip */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.Skip(100);
+
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation SkipLast */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.SkipLast(200);
+
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation SkipWhile */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.SkipWhile(c => c.Make == "Volvo");
+var result2 = cars.TakeWhile((c, i) => i < 200);
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.MaxSpeed}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation DefaultIfEmpty */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var EmptyList = Enumerable.Empty<Car>();
+
+int[] numbers = [];
+
+var results = numbers.DefaultIfEmpty(1000);
+
+foreach (var car in results)
+{
+    Console.WriteLine(car);
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ElementAt */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.ElementAt(0);
+var result1 = cars.ElementAt(new Index(1, true));
+
+Console.WriteLine(result);
+Console.WriteLine(result1);
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ElementAtOrDefault */
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.ElementAtOrDefault(1000);
+var result1 = cars.ElementAtOrDefault(new Index(1, true));
+int[] numbers = [];
+var result2 = numbers.ElementAtOrDefault(1000);
+Console.WriteLine(result);
+Console.WriteLine(result1);
+Console.WriteLine(result2);
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Index */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var result = cars.Index();
+
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Index} - {car.Item}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Concat */
+
+using App1;
+using System.Linq;
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+List<Car> cars3 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+var allcars = cars1.Concat(cars2);
+foreach (Car car in allcars)
+{
+    Console.WriteLine($"{car.Make} {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Union */
+using App1;
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+List<Car> cars3 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+var allcars = cars1.Union(cars2).Union(cars3);
+foreach (Car car in allcars)
+{
+    Console.WriteLine($"{car.Id} {car.Make} {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation UnionBy */
+using App1;
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+List<Car> cars3 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+var allcars = cars1.UnionBy(cars2, c => c.Id).UnionBy(cars3, c => c.Id);
+foreach (Car car in allcars)
+{
+    Console.WriteLine($"{car.Id} {car.Make} {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Zip */
+using App1;
+
+int[] numbers = [1, 2, 3, 4];
+string[] words = ["one", "two", "three", "four"];
+DateTime[] dates = [DateTime.Now, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), DateTime.Now.AddDays(3)];
+var result = numbers.Zip(words, dates);
+
+foreach (var (First, Second, Third) in result)
+{
+    Console.WriteLine($"({First} - {Second} - {Third})");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ToArray */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var carsToAray = cars.ToArray();
+
+var firstCar = carsToAray[0];
+Console.WriteLine($"First Car: {firstCar.Id} - {firstCar.Make} - {firstCar.Model}");
+Console.WriteLine($"------------------- All Cars ------------------");
+foreach (var car in carsToAray)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ToDictionary */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var carsToDictionary = cars.ToDictionary(c => c.Id, c => $"{c.Make} - {c.Model}");
+
+foreach (var car in carsToDictionary)
+{
+    Console.WriteLine($"Key: {car.Key} - Value: {car.Value}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ToHashSet */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var carsToHashSet = cars.ToHashSet();
+
+foreach (var car in carsToHashSet)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ToList */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var carsToList = cars.ToList();
+
+foreach (var car in carsToList)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ToList */
+
+using App1;
+using System.Linq;
+
+var cars = CarRepository.GetCars();
+
+var carsToList = cars.ToList();
+
+foreach (var car in carsToList)
+{
+    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Contains */
+
+using App1;
+using System.Linq;
+
+int[] numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var result = numbers.Contains(25);
+Console.WriteLine(result ? "I found it" : "I don't find it");
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Intersect */
+using App1;
+using System.Linq;
+
+int[] numbers1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+int[] numbers2 = [5, 6, 6, 7, 8, 9, 10, 11, 12, 12, 13, 14, 15];
+var result = numbers1.Intersect(numbers2);
+foreach (var number in result)
+{
+    Console.Write($"{number} ");
+}
+
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+];
+var result = cars1.Intersect(cars2);
+foreach (var car in result)
+{
+    Console.WriteLine($"Make: {car.Make} - Model: {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation IntersectBy */
+using App1;
+using System.Linq;
+
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+];
+var result = cars1.IntersectBy(cars2.Select(c => c.VIN), c => c.VIN);
+foreach (var car in result)
+{
+    Console.WriteLine($"Id: {car.Id} - Make: {car.Make} - Model: {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation SequenceEqual */
+using App1;
+using System.Linq;
+int[] numbers1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+int[] numbers2 = [1, 2, 6, 4, 5, 3, 7, 9, 8, 10];
+var result = numbers1.SequenceEqual(numbers2);
+
+Console.WriteLine(result ? "Both sequences are equal" : "Sequences are not equal");
+
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+List<Car> cars2 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+];
+var result1 = cars1.SequenceEqual(cars2);
+Console.WriteLine(result1 ? "Both sequences are equal" : "Sequences are not equal");
+/*-------------------------------------------------------------------------------------*/
