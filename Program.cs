@@ -402,15 +402,6 @@ foreach (var car in carsToList)
     Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
 }
 /*-------------------------------------------------------------------------------------*/
-/* Funcation ToList */
-
-var cars = CarRepository.GetCars();
-var carsToList = cars.ToList();
-foreach (var car in carsToList)
-{
-    Console.WriteLine($"{car.Id} - {car.Make} - {car.Model}");
-}
-/*-------------------------------------------------------------------------------------*/
 /* Funcation Contains */
 
 int[] numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
