@@ -498,3 +498,39 @@ List<Car> cars2 =
 var result1 = cars1.SequenceEqual(cars2);
 Console.WriteLine(result1 ? "Both sequences are equal" : "Sequences are not equal");
 /*-------------------------------------------------------------------------------------*/
+/* Funcation Except */
+
+int[] numbers1 =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+int[] numbers2 = [5, 6, 7, 8, 9, 10, 11, 12, 13];
+var result1 = numbers1.Except(numbers2);
+foreach (int number in result1)
+{
+    Console.Write($"{number} ");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation ExceptBy */
+
+List<Car> cars1 =
+[
+        new Car(1,"Ford","GT",2005,"WAU3FAFR0BA781507","Mauv",298),
+        new Car(2,"Mercury","Mystique",2000,"1FTEW1C89AK439924","Turquoise",217),
+        new Car(3,"Volvo","S40",2001,"JTHBK1GGXF2728528","Orange",214),
+        new Car(4,"Nissan","Maxima",2010,"TRUXD38J191264584","Fuscia",243),
+        new Car(5,"Oldsmobile","Bravada",1994,"WAUDH48H19K669503","Yellow",221),
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+];
+List<Car> cars2 =
+[
+        new Car(6,"Mercury","Mariner",2005,"5N1AA0NE4EN089552","Puce",282),
+        new Car(7,"Geo","Tracker",1995,"3GYFK66N15G463658","Puce",259),
+        new Car(8,"Mitsubishi","GTO",1991,"1VWAP7A39EC013320","Aquamarine",274),
+        new Car(9,"Volkswagen","Eurovan",1995,"KMHFH4JG7FA285977","Orange",236),
+        new Car(10,"GMC","Sierra 2500",2002,"1FAHP2D87DG093452","Yellow",275),
+];
+var result = cars1.ExceptBy(cars2.Select(c => c.VIN), c => c.VIN);
+foreach (Car car in result)
+{
+    Console.WriteLine($"{car.Id} {car.Make} {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
