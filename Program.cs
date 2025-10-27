@@ -534,3 +534,36 @@ foreach (Car car in result)
     Console.WriteLine($"{car.Id} {car.Make} {car.Model}");
 }
 /*-------------------------------------------------------------------------------------*/
+/* Funcation Range */
+
+var range = Enumerable.Range(1,10);
+foreach (var number in range)
+{
+    Console.WriteLine($"Number: {number}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Reverse */
+var cars = CarRepository.GetCars();
+
+int [] numbers= [1,2,3,4,5,6,7,8,9,10];
+var result = numbers.Reverse();
+foreach (var number in result)
+{
+    Console.Write($"{number} ");
+}
+var result = cars.Reverse();
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Id} {car.Make} {car.Model}");
+}
+/*-------------------------------------------------------------------------------------*/
+/* Funcation Shuffle */
+
+var cars = CarRepository.GetCars();
+var result = cars.Shuffle();
+foreach (var car in result)
+{
+    Console.WriteLine($"{car.Make} {car.Model} ({car.Year})");
+}
+/*-------------------------------------------------------------------------------------*/
+
